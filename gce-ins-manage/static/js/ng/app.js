@@ -1,9 +1,7 @@
 angular.module('mainApp', ['mainServices'])
 
 .controller('instanceController', ['$scope','instance', 'projectId', function($scope, instance, projectId) {
-    // self = this;
-    // $scope.project = "";
-    // var projectJSON = 
+
     var initDisp = function(){
         projectId.get().$promise.then(function(project) {
             $scope.project = project;

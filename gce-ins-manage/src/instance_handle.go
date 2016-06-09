@@ -39,8 +39,6 @@ func (p *projectAPI) get(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	// content-Typeを設定
-	// w.Header().Add("Content-Type", "application/json; charset=utf-8")
 	fmt.Fprintf(w, string(b))
 }
 
@@ -52,8 +50,6 @@ func (i *instanceAPI) handler(w http.ResponseWriter, r *http.Request) {
 		i.post(w, r)
 	case "GET":
 		i.get(w, r)
-	// case "DELETE":
-	// 	i.delete(w, r)
 	default:
 		w.WriteHeader(http.StatusMethodNotAllowed)
 	}
@@ -97,9 +93,7 @@ func (i *instanceAPI) get(w http.ResponseWriter, r *http.Request) {
 		for _, ins := range insList.Items {
 			natIp := ins.NetworkInterfaces[0].AccessConfigs[0].NatIP
 			insStruct := insStruct{Instance: ins.Name, Status: ins.Status, Zone: zone.Name, Ip: natIp}
-			// log.Debugf(ctx, "NetworkInterfaces: %v ", ins.NetworkInterfaces[0].AccessConfigs[0].NatIP)
 			insStructList = append(insStructList, insStruct)
-			// log.Debugf(ctx, "ins: %v", ins)
 		}
 	}
 	log.Debugf(ctx, "insStructList: %v", insStructList)
@@ -154,9 +148,6 @@ func (i *instanceAPI) post(w http.ResponseWriter, r *http.Request) {
 	}
 	return
 }
-
-// func (i *instanceAPI) delete(w http.ResponseWriter, r *http.Request) {
-// }
 
 func NewComputeService(ctx context.Context) (*compute.Service, error) {
 	client := &http.Client{
