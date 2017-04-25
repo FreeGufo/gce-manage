@@ -1,3 +1,35 @@
-<h1>
-  {{title}}
-</h1>
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <div class="container">
+    <h1>GCE Instance Manager</h1>
+    <p>インスタンスのアップダウンを行います！</p>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Example row of columns -->
+  <div class="row">
+    <div class="col-md-12">
+      <h2>appid: {{ project }}</h2>
+      <p><button class="btn btn-default" (click)="instanceRefresh()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</button></p>
+      <table class="table">
+        <tr>
+          <th>instance</th>
+          <th>zone</th>
+          <th>status</th>
+          <th>ip address</th>
+          <th>up</th>
+          <th>down</th>
+        </tr>
+        <tr *ngFor="let ins of instanceList">
+          <td>{{instance.instance}}</td>
+          <td>{{ins.zone}}</td>
+          <td>{{ins.status}}</td>
+          <!--<td><a ng-href="http://{{ins.ip}}/" *ngIf="ns.ip != ''" target="_blank">{{ins.ip}}</a></td>-->
+          <td><a href="http://{{ins.ip}}/" target="_blank">{{ins.ip}}</a></td>
+          <td><button class="btn btn-info" (click)="startIns(ins)">start</button></td>
+          <td><button class="btn btn-danger" (click)="stopIns(ins)">stop</button></td>
+        </tr>
+      </table>
+    </div>
+  </div>
