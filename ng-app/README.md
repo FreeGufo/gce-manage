@@ -26,3 +26,14 @@ Before running the tests make sure you are serving the app via `ng serve`.
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+## 環境構築
+
+npm install --save-dev css-loader node-sass resolve-url-loader sass-loader style-loader url-loader
+
+npm install bootstrap-loader@2.0.0-beta.20 --save-dev
+
+npm install bootstrap@4.0.0-alpha.6 --save
+
+npm install font-awesome --save
