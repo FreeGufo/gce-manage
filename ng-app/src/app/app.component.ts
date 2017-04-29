@@ -1,39 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {Instance} from './instance';
 
-export class Instance {
-  instance: string;
-  zone: string;
-  status: string;
-  ip: string;
-}
+import { InstanceService } from './app.service';
 
-const InstanceList: Instance[] = [
-  {
-    instance: 'ins1',
-    zone: 'zone1',
-    status: 'running',
-    ip: '1.0.0.0'
-  },
-  {
-    instance: 'ins2',
-    zone: 'zone2',
-    status: 'stop',
-    ip: '1.0.0.1'
-  }
-];
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  providers: [InstanceService]
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   project = 'app-works!';
-  instanceList = InstanceList;
-  instance = this.instanceList[0];
+  instanceList: Instance[];
+  instance: Instance;
+
+  constructor(private instanceService: InstanceService) { }
+
+  getInstances(): void {
+    this.instanceService.getInstances().then(instanceList => this.instanceList = instanceList);
+  }
+
+  ngOnInit(): void {
+    this.getInstances();
+    // this.instance = this.instanceList[0];
+  }
 
   instanceRefresh(): void{
-    alert('refresh');
+    this.getInstances();
+    // this.instance = this.instanceList[0];
   }
   startIns(ins: Instance): void {
     this.instance = ins;
