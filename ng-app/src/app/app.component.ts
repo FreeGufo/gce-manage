@@ -2,37 +2,39 @@ import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
 
 import { Instance } from './instance';
-import { InstanceService, Param } from './app.service';
+import { InstanceService, ProjectIdService, Param } from './app.service';
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [InstanceService]
+  providers: [InstanceService, ProjectIdService]
 })
 export class AppComponent implements OnInit{
-  project = 'app-works!';
+  project: string;
   instanceList: Instance[];
 
   constructor(
-    private instanceService: InstanceService
-    // private location: Location
+    private instanceService: InstanceService,
+    private projectIdService: ProjectIdService
   ) { }
 
+  getProjectID(): void{
+    this.projectIdService.getProjectID().then(projectID => this.project = projectID)
+  }
   getInstances(): void {
-
     this.instanceService.getInstances().then(instanceList => this.instanceList = instanceList);
   }
 
+
   ngOnInit(): void {
     this.getInstances();
-      // this.instanceList = INSLIST;
+    this.getProjectID();
   }
 
   instanceRefresh(): void{
     this.getInstances();
-    // this.instance = this.instanceList[0];
   }
 
   startIns(ins: Instance): void {
