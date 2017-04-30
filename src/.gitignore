@@ -17,6 +17,3 @@
 ### AppEngine template
 # Google App Engine generated folder
 appengine-generated/
-
-# angular
-dist/
