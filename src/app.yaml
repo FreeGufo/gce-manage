@@ -10,60 +10,12 @@ handlers:
   upload: dist/index.html
   login: admin
 
-
-#- url: /(.*\.js|.*\.map|fontawesome.*)
-#  static_files: dist/\1
-#  upload: dist/.*
-#  login: admin
-
-#- url: /(main.bundle.js|vendor.bundle.js|styles.bundle.js|polyfills.bundle.js|inline.bundle.js)
-#  static_files: dist/\1
-#  upload: dist/.*
-#  login: admin
-
 - url: /ng
   static_dir: dist
   login: admin
 
 - url: /assets
   static_dir: dist/assets
-  login: admin
-
-#- url: /*\.js
-#  static_files: dist/*\.js
-#  upload: dist/.*
-#  login: admin
-
-#- url: /
-#  static_files: static/html/index.html
-#  upload: static/html/index.html
-#  login: admin
-
-- url: /(index.html)
-  static_files: static/html/\1
-  upload: static/html/.*
-  login: admin
-  
-- url: /css
-  static_dir: static/css
-  login: admin
-  
-- url: /js
-  static_dir: static/js
-  login: admin
-  
-- url: /fonts
-  static_dir: static/fonts
-  login: admin
-  
-- url: /images/(.*\.(gif|png|jpg|svg))$
-  static_files: static/images/\1
-  upload: static/images/.*\.(gif|png|jpg|svg)$
-  login: admin
-    
-- url: /favicon\.ico
-  static_files: favicon.ico
-  upload: favicon\.ico
   login: admin
     
 - url: /robots\.txt
