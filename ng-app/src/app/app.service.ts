@@ -7,7 +7,6 @@ import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { Instance } from './instance'
-import { INSLIST } from './mock-instances'
 
 export class Param {
   instance: string;
@@ -19,12 +18,16 @@ export class Param {
 export class InstanceService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
-  private instanceUrl = 'instance';  // URL to web api
+  private instanceUrl = '/instance';  // URL to web api
 
   constructor(private http: Http) { }
 
   getInstances(): Promise<Instance[]> {
-    return Promise.resolve(INSLIST);
+    // return Promise.resolve(INSLIST);
+    return this.http.get(this.instanceUrl)
+      .toPromise()
+      .then(response => response.json() as Instance[])
+      .catch(this.handleError);
   }
 
   post(param: Param): Promise<Instance> {

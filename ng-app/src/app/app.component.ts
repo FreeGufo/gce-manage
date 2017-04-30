@@ -1,12 +1,9 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
-// import { Location }          from '@angular/common';
 
 import { Instance } from './instance';
-
 import { InstanceService, Param } from './app.service';
 
-import { INSLIST } from './mock-instances'
 
 @Component({
   selector: 'app-root',
@@ -17,9 +14,6 @@ import { INSLIST } from './mock-instances'
 export class AppComponent implements OnInit{
   project = 'app-works!';
   instanceList: Instance[];
-  instance: Instance;
-
-  param: Param;
 
   constructor(
     private instanceService: InstanceService
@@ -40,29 +34,24 @@ export class AppComponent implements OnInit{
     this.getInstances();
     // this.instance = this.instanceList[0];
   }
+
   startIns(ins: Instance): void {
-    this.instance = ins;
-    alert('start ' + this.instance.instance);
-    this.param.instance = ins.instance;
-    this.param.zone = ins.zone;
-    this.param.Method = 'start';
-
-    this.instanceService.post(this.param)
-      .then(() => this.instanceRefresh());
+    let param: Param = AppComponent.createParam(ins, 'start');
+    this.instanceService.post(param)
+      .then(() => this.getInstances());
   }
+
   stopIns(ins: Instance): void {
-    this.instance = ins;
-    alert('stop ' + this.instance.instance);
-    this.param.instance = ins.instance;
-    this.param.zone = ins.zone;
-    this.param.Method = 'stop';
-
-    this.instanceService.post(this.param)
-      .then(() => this.instanceRefresh());
+    let param: Param = AppComponent.createParam(ins, 'stop');
+    this.instanceService.post(param)
+      .then(() => this.getInstances());
   }
-  //
-  // goBack(): void {
-  //   this.location.back();
-  // }
 
+  private static createParam(ins: Instance, method: string): Param {
+    let param = new Param();
+    param.instance = ins.instance;
+    param.zone = ins.zone;
+    param.Method = method;
+    return param;
+  }
 }
