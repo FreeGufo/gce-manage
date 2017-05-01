@@ -1,0 +1,36 @@
+application: freegufo-dev
+module: default
+version: gce-ins-manage
+runtime: go
+api_version: go1
+
+handlers:
+- url: /
+  static_files: dist/index.html
+  upload: dist/index.html
+  login: admin
+
+- url: /ng
+  static_dir: dist
+  login: admin
+
+- url: /assets
+  static_dir: dist/assets
+  login: admin
+    
+- url: /robots\.txt
+  static_files: robots.txt
+  upload: robots\.txt
+  login: admin
+  
+- url: /.*
+  script: _go_app
+  login: admin
+
+nobuild_files:
+- vendor
+
+skip_files:
+- ^(.*/)?.*\.map$
+- ^(.*/)?.*\.DS_Store$
+- vendor/.*$
